@@ -152,7 +152,14 @@
                 {{ page.date | date: "%B %Y" }}
               </p>
               {% endif %}
-              {{ content }}
+              {% if page.author %}
+              <p style="margin-top:0px;margin-bottom:10px;">
+                {{ page.author }}
+              </p>
+              {% endif %}
+              <div style="margin-top:20px;">
+                {{ content }}
+              </div>
             </td>
           </tr>
         </table>
