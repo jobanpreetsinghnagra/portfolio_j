@@ -20,9 +20,10 @@
 
   <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap');
-
     body {
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
@@ -40,54 +41,122 @@
       <td style="padding:0px">
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
           <tr style="padding:0px">
-            <td style="padding:2.5%;width:60%;vertical-align:middle">
-              <h1>
-                Jobanpreet Singh Nagra
+            <td style="padding:0px;width:100%;text-align:center">
+              <h1 style="text-align:center;margin-bottom:20px;">
+                {{ site.name }}
               </h1>
+            </td>
+          </tr>
+        </table>
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+          <tr style="padding:0px">
+            <td style="padding:2.5%;width:60%;vertical-align:top">
               <p>I am a Pre-Final UG pursuing Computer Science.</p>
               <p>I'm passionate about astrophotography, image processing, computer vision and deploying practical ML solutions.</p>
-              <p style="text-align:center">
-                <a target="_blank" href="mailto:jobanpreetsinghnagra05@gmail.com"> Email</a> &nbsp;/&nbsp;
-                <a target="_blank" href="https://github.com/jobanpreetsinghnagra">GitHub</a> &nbsp;/&nbsp;
-                <a target="_blank" href="https://x.com/j0bannagra">X (Twitter)</a> &nbsp;/&nbsp;
-                <a target="_blank" href="https://huggingface.co/jobannagra">Hugging Face</a> &nbsp;/&nbsp;
+              <p style="margin-top:20px;">
+                <a target="_blank" href="mailto:jobanpreetsinghnagra05@gmail.com">Email</a> / 
+                <a target="_blank" href="https://github.com/jobanpreetsinghnagra">GitHub</a> / 
+                <a target="_blank" href="https://x.com/j0bannagra">X (Twitter)</a> / 
+                <a target="_blank" href="https://huggingface.co/jobannagra">Hugging Face</a> / 
                 <a target="_blank" href="https://drive.google.com/file/d/1WK34LrbwasySkPklDbQvGaR0PfpQHnyZ/view?usp=sharing">CV</a>
               </p>
             </td>
-            <td style="padding:2.5%;width:40%;max-width:40%">
-              <img style="width:100%;max-width:100%" alt="profile photo" src="images/circle_bw_crop.jpg">
+            <td style="padding:2.5%;width:40%;max-width:40%;vertical-align:top;text-align:right">
+              <img style="width:200px;max-width:200px;border-radius:50%;" alt="profile photo" src="{{ site.baseurl }}/images/profile_image.jpg">
             </td>
           </tr>
         </table>
 
+        {% if page.url == '/' or page.url == '/index.html' %}
+        <!-- Research section -->
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
           <tr>
             <td style="padding:2.5%;width:100%;vertical-align:middle">
-              <h2>Projects</h2>
-              <p>
-                A selection of my recent work.
+              <h2 style="font-weight:bold;margin-top:30px;margin-bottom:10px;">Projects</h2>
+              <p style="margin-bottom:20px;">
+                These are some of the projects I've worked on.
               </p>
             </td>
           </tr>
         </table>
+        {% for post in site.posts %}
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
           <tr>
-            <td style="padding:2.5%;width:100%;vertical-align:middle">
-              <h3><a href="https://github.com/jobanpreetsinghnagra/Mushroom_Classification">Mushroom Classifier</a></h3>
-              <p>
-                A machine learning project focused on classifying mushrooms using their characteristics.
-              </p>
+            {% if post.image %}
+            <td style="padding:2.5%;width:25%;vertical-align:middle">
+              <img style="width:100%;max-width:150px;height:auto;border-radius:4px;" alt="{{ post.title }}" src="{{ site.baseurl }}{{ post.image }}">
             </td>
-          </tr>
-          <tr>
+            <td style="padding:2.5%;width:75%;vertical-align:middle">
+            {% else %}
             <td style="padding:2.5%;width:100%;vertical-align:middle">
-              <h3><a href="https://github.com/jobanpreetsinghnagra/student_predictor">Student Performance Predictor</a></h3>
-              <p>
-                A model that predicts student performance based on academic and related features.
+            {% endif %}
+              <h3 style="font-weight:bold;margin-top:0px;margin-bottom:5px;">
+                {{ post.title }}
+              </h3>
+              {% if post.authors %}
+              <p style="margin-top:0px;margin-bottom:5px;">
+                {{ post.authors }}
               </p>
+              {% elsif post.author %}
+              <p style="margin-top:0px;margin-bottom:5px;">
+                {{ post.author }}
+              </p>
+              {% endif %}
+              {% if post.venue %}
+              <p style="margin-top:0px;margin-bottom:5px;color:#666;">
+                {{ post.venue }}{% if post.date %}, {{ post.date | date: "%Y" }}{% endif %}
+              </p>
+              {% elsif post.date %}
+              <p style="margin-top:0px;margin-bottom:5px;color:#666;">
+                {{ post.date | date: "%B %Y" }}
+              </p>
+              {% endif %}
+              <p style="margin-top:5px;margin-bottom:5px;">
+                {% if post.arxiv %}
+                  <a target="_blank" href="{{ post.arxiv }}">arxiv</a> / 
+                {% endif %}
+                {% if post.code %}
+                  <a target="_blank" href="{{ post.code }}">code</a> / 
+                {% endif %}
+                {% if post.website %}
+                  <a target="_blank" href="{{ post.website }}">website</a> / 
+                {% endif %}
+                {% if post.arxiv or post.code or post.website %}
+                  <a href="{{ post.url }}">more</a>
+                {% else %}
+                  <a href="{{ post.url }}">read more</a>
+                {% endif %}
+              </p>
+              {% if post.excerpt %}
+              <p style="margin-top:10px;margin-bottom:0px;">
+                {{ post.excerpt }}
+              </p>
+              {% endif %}
             </td>
           </tr>
         </table>
+        {% endfor %}
+        {% else %}
+        <!-- Post content -->
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+          <tr>
+            <td style="padding:2.5%;width:100%;vertical-align:middle">
+              <h2>{{ page.title }}</h2>
+              {% if page.subtitle %}
+              <p style="margin-top:0px;margin-bottom:0px;">
+                <em>{{ page.subtitle }}</em>
+              </p>
+              {% endif %}
+              {% if page.date %}
+              <p style="margin-top:0px;margin-bottom:0px;color:#666;">
+                {{ page.date | date: "%B %Y" }}
+              </p>
+              {% endif %}
+              {{ content }}
+            </td>
+          </tr>
+        </table>
+        {% endif %}
 
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
           <tr>

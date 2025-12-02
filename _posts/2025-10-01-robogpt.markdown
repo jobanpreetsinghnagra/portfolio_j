@@ -1,0 +1,25 @@
+---
+layout: post
+title: "RoboGPT-Robotics RAG AI Agent"
+date: 2025-10-01
+image: /images/arch.png
+categories: ai robotics
+author: "Jobanpreet Singh Nagra"
+code: https://github.com/jobanpreetsinghnagra/RoboGPT
+---
+
+RoboGPT is a robotics-focused AI assistant built using a Retrieval-Augmented Generation (RAG) architecture.  
+It leverages high-quality vector embeddings to enable low-latency, semantic retrieval of robotics knowledge.
+
+**Core Technology: Embeddings + RAG**
+
+The system uses sentence-transformer embeddings with ChromaDB as the local vector store. This eliminates network latency and speeds up semantic retrieval during query resolution.
+
+**Context Window Optimization**
+
+Instead of fine-tuning a robotics-specific LLM, domain knowledge (ROS2 docs, robotics textbooks, Python robotics resources) is injected into the model context on demand. This provides high accuracy without additional training cost.
+
+**Hybrid Compute Strategy**
+
+Lightweight embedding computation is performed locally, while heavy reasoning is delegated to the DeepSeek R1 API.  
+This balances throughput, latency, and cost while delivering high-precision robotic task guidance.
